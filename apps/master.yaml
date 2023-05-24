@@ -17,8 +17,6 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: sync-wave
-  syncPolicy:
-    automated:
-      prune: true
+  syncPolicy: {}
     syncOptions:
       - CreateNamespace=true
