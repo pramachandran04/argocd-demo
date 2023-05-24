@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: guestbook
+  name: page-up
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-99" 
+    argocd.argoproj.io/sync-wave: "-100" 
 spec:
   project: default
   source:
     repoURL: https://github.com/pramachandran04/argocd-demo.git
     targetRevision: HEAD
-    path: guestbook
+    path: page-up
   destination:
     server: https://kubernetes.default.svc
-    namespace: guestbook
+    namespace: page-up
   syncPolicy:
     automated:
       prune: true
