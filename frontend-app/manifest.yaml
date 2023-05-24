@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend-app
+  # annotations:
+  #   argocd.argoproj.io/sync-wave: "-50"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: frontend-app
+  template:
+    metadata:
+      labels:
+        tier: frontend-app
+    spec:
+      containers:
+        - name: main
+          image: nginx:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-app
+spec:
+  selector:
+    tier: frontend-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
