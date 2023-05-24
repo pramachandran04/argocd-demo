@@ -18,6 +18,7 @@ spec:
       containers:
         - name: main
           image: nginx:latest
+          command: ["sleep", "3"]
 ---
 apiVersion: v1
 kind: Service
