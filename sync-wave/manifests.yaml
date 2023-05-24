@@ -1,65 +1,32 @@
 ---
-apiVersion: apps/v1
-kind: ReplicaSet
+---
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: app-backend
-  # annotations:
-  #   argocd.argoproj.io/sync-wave: "-99"
+  name: sql-upgrade
+  annotations:
+    argocd.argoproj.io/sync-wave: "-100" 
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      tier: app-backend
   template:
-    metadata:
-      labels:
-        tier: app-backend
     spec:
       containers:
-        - name: main
-          image: nginx:latest
+        - name: sql-upgrade
+          image: alpine:latest
+          command: ["sleep", "8"]
+      restartPolicy: Never
 ---
-apiVersion: v1
-kind: Service
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: app-backend
+  name: maint-page-up
+  annotations:
+    argocd.argoproj.io/sync-wave: "-99" 
 spec:
-  selector:
-    tier: app-backend
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
-
----
-apiVersion: apps/v1
-kind: ReplicaSet
-metadata:
-  name: app-frontend
-  # annotations:
-  #   argocd.argoproj.io/sync-wave: "-50"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      tier: app-frontend
   template:
-    metadata:
-      labels:
-        tier: app-frontend
     spec:
       containers:
-        - name: main
-          image: nginx:latest
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: app-frontend
-spec:
-  selector:
-    tier: app-frontend
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+        - name: page-up
+          image: alpine:latest
+          command: ["sleep", "5"]
+      restartPolicy: Never
+  backoffLimit: 0
