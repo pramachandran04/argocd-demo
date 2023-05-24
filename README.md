@@ -1,6 +1,8 @@
 # argocd-demo
 Sync-wave-testing
 
+argocd app create page-up --repo https://github.com/pramachandran04/argocd-demo.git --path page-up --dest-server https://kubernetes.default.svc --dest-namespace page-up
+
 argocd app create guestbook --repo https://github.com/pramachandran04/argocd-demo.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace guestbook
 
 argocd app create backend-app --repo https://github.com/pramachandran04/argocd-demo.git --path backend-app --dest-server https://kubernetes.default.svc --dest-namespace backend-app
