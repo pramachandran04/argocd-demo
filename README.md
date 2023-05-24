@@ -1,6 +1,8 @@
 # argocd-demo
 Sync-wave-testing
 
+argocd app create sql-upgrade --repo https://github.com/pramachandran04/argocd-demo.git --path sql-upgrade --dest-server https://kubernetes.default.svc --dest-namespace sql-upgrade
+
 argocd app create page-up --repo https://github.com/pramachandran04/argocd-demo.git --path page-up --dest-server https://kubernetes.default.svc --dest-namespace page-up
 
 argocd app create guestbook --repo https://github.com/pramachandran04/argocd-demo.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace guestbook
