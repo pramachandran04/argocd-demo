@@ -1,0 +1,82 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: upgrade-sql-schema
+  annotations:
+    argocd.argoproj.io/sync-wave: "-100"
+spec:
+  template:
+    spec:
+      containers:
+        - name: upgrade-sql-schema
+          image: alpine:latest
+          command: ["sleep", "5"]
+      restartPolicy: Never
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: backend
+  annotations:
+    argocd.argoproj.io/sync-wave: "-99"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: backend
+  template:
+    metadata:
+      labels:
+        tier: backend
+    spec:
+      containers:
+        - name: main
+          image: nginx:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend
+  annotations:
+    argocd.argoproj.io/sync-wave: "-50"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+        - name: main
+          image: nginx:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  selector:
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
