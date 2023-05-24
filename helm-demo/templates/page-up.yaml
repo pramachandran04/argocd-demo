@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: page-up
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-99" 
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/pramachandran04/argocd-demo.git
+    targetRevision: HEAD
+    path: page-up
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: page-up
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
