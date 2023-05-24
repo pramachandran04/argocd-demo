@@ -9,10 +9,24 @@ argocd app create guestbook --repo https://github.com/pramachandran04/argocd-dem
 
 argocd app create backend-app --repo https://github.com/pramachandran04/argocd-demo.git --path backend-app --dest-server https://kubernetes.default.svc --dest-namespace backend-app
 
+
+argocd app delete sql-upgrade 
+argocd app delete page-up 
+argocd app delete guestbook 
+argocd app delete backend-app 
+
+
+
+
+
+
+
 argocd app create frontend-app --repo https://github.com/pramachandran04/argocd-demo.git --path frontend-app --dest-server https://kubernetes.default.svc --dest-namespace frontend-app
 
 argocd app create sync-wave --repo https://github.com/pramachandran04/argocd-demo.git --path sync-wave --dest-server https://kubernetes.default.svc --dest-namespace sync-wave
 
+argocd app delete sql-upgrade 
+argocd app delete page-up 
 argocd app delete guestbook 
 argocd app delete backend-app 
 argocd app delete frontend-app 
