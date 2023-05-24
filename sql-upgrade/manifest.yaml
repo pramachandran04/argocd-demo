@@ -9,5 +9,5 @@ spec:
       containers:
         - name: sql-upgrade
           image: alpine:latest
-          command: ["sleep", "8"]
+          command: ["sleep", "15"]
       restartPolicy: Never
