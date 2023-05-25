@@ -14,8 +14,4 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: page-up
-  syncPolicy:
-    automated:
-      prune: true
-    syncOptions:
-      - CreateNamespace=true
+  syncPolicy: {}

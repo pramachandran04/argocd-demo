@@ -4,7 +4,7 @@ metadata:
   name: sql-upgrade
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-50" 
+    argocd.argoproj.io/hook: PreSync 
 spec:
   project: default
   source:
@@ -14,8 +14,4 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: sql-upgrade
-  syncPolicy:
-    automated:
-      prune: true
-    syncOptions:
-      - CreateNamespace=true
+  syncPolicy: {}
