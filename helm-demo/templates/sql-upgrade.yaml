@@ -4,7 +4,7 @@ metadata:
   name: sql-upgrade
   namespace: argocd
   annotations:
-    argocd.argoproj.io/hook: PreSync 
+    argocd.argoproj.io/sync-wave: "-50" 
 spec:
   project: default
   source:
